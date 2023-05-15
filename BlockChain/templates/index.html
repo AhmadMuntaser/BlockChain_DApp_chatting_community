@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Community Dapp</title>
+</head>
+<body>
+    <h1>Community Dapp</h1>
+    <form action="/register" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <hr>
+
+    <form action="/post" method="POST">
+        <label for="content">Post:</label>
+        <input type="text" name="content" id="content" required>
+        <button type="submit">Post</button>
+    </form>
+
+    <hr>
+
+    <h2>Posts</h2>
+    <a href="/get_posts">View all posts</a>
+
+    <hr>
+
+    <h2>Users with Posts</h2>
+    <a href="/get_users_with_posts">View users with posts</a>
+</body>
+</html>

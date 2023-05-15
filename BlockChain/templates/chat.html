@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+</head>
+<body>
+    <h1>Chat</h1>
+    <h2>Welcome, {{ username }}!</h2>  <!-- Display the registered username -->
+
+    <div id="chat-messages">
+        {% for post in messages %}
+            {% for index in range(post['postIds']|length) %}
+                <p>{{ post['username'] }}: {{ post['posts'][index] }}: {{ post['timestamps'][index] }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <hr>
+    <form method="POST" action="/post">
+        <textarea name="post_content" placeholder="Write your message"></textarea>
+        <br>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>

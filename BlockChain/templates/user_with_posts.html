@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users with Posts</title>
+</head>
+<body>
+    <h1>Users with Posts</h1>
+    {% for user in users_with_posts %}
+        <div>
+            <h3>{{ user.username }}</h3>
+            {% for post in user.posts %}
+                <div>
+                    <p><strong>Author:</strong> {{ post.author }}</p>
+                    <p><strong>Content:</strong> {{ post.content }}</p>
+                    <p><strong>Timestamp:</strong> {{ post.timestamp }}</p>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>
