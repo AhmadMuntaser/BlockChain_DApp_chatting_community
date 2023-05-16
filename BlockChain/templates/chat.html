@@ -11,14 +11,42 @@
         {% for post in messages %}
             {% for index in range(post['postIds']|length) %}
                 <p>{{ post['username'] }}: {{ post['posts'][index] }}: {{ post['timestamps'][index] }}</p>
+            <div >
+                <form method="POST" action="/Like">
+                    <button type="submit" name="post_id" Value= {{ post['postIds'][index] }} >Like ! </button>
+                </form>
+  
+                <form method="POST" action="/LikesForPost" >
+                    <p>Likes count: {{post['LikesCount'][index]}}</p>
+                    <button type="submit" name="post_id" Value= {{ post['postIds'][index] }} >Users Liked ! </button>
+
+                </form>
+
+            </div>
+                <center>
+                {% for index2 in range(post['Comments'][index]|length) %}
+                <center ><p>{{post['Comments'][index][index2]['username']}} : {{post['Comments'][index][index2]['comment']}} : {{post['Comments'][index][index2]['timestamp']}}  </p></center>
+                {% endfor %}
+ 
+                <form method="POST" action="/Comment">
+                    <textarea name="comment_content"  placeholder="Write your Comment"></textarea>
+                    <br>
+                    <button type="submit" name="post_id" Value= {{ post['postIds'][index] }} >Send</button> 
+                </form>
+                </center>
             {% endfor %}
         {% endfor %}
     </div>
     <hr>
     <form method="POST" action="/post">
-        <textarea name="post_content" placeholder="Write your message"></textarea>
+        <textarea name="post_content" placeholder="Write your post"></textarea>
         <br>
         <button type="submit">Send</button>
+    </form>
+
+    <br><br>
+    <form action="/" method="get">
+        <button type="submit">Back To Home ! </button>
     </form>
 </body>
 </html>

@@ -34,6 +34,7 @@ contract CommunityDapp
         uint postCount;
     }
     mapping(address => User) private users;
+    mapping(address => mapping(uint256 => bool)) userLikedPosts;
     Post[] private posts; 
     Comment[] private comments;  
     Like[] private likes; 
@@ -62,10 +63,12 @@ contract CommunityDapp
     function like(uint256 _postId ) public 
     {
         require(users[msg.sender].registered, "User not registered");  
+        require(!userLikedPosts[msg.sender][_postId], "User already liked this post");
         Like memory newLike = Like(_postId , id_likes , users[msg.sender].name, block.timestamp); 
         likes.push(newLike); 
         id_likes ++; 
-                                          
+        userLikedPosts[msg.sender][_postId] = true;
+                                 
     }
     function GetLikesOnPost(uint256 _PostId) public view returns(Like[] memory ){
     uint count= 0 ; 

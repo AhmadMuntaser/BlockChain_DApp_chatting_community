@@ -5,13 +5,19 @@
 </head>
 <body>
     <h1>Community Dapp</h1>
-    <form action="/register" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required>
-        <button type="submit">Register</button>
+    {% if userSigned_Check %}
+    <h3 > Welcome Back {{username}} ! </h3>
+    <form action="/post" method="get">
+        <button type="submit">Go Chat !</button>
     </form>
-
-    <hr>
+    {% else %}
+        <form action="/register" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+            <button type="submit">Register</button>
+        </form>
+    {% endif %}
+        <!-- <hr>
 
     <form action="/post" method="POST">
         <label for="content">Post:</label>
@@ -27,6 +33,6 @@
     <hr>
 
     <h2>Users with Posts</h2>
-    <a href="/get_users_with_posts">View users with posts</a>
+    <a href="/get_users_with_posts">View users with posts</a> -->
 </body>
 </html>
