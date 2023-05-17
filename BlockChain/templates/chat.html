@@ -2,51 +2,213 @@
 <html>
 <head>
     <title>Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        #chat-messages {
+            margin-top: 20px;
+        }
+        
+        .message {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .message p {
+            margin: 0;
+        }
+        
+        .message .username {
+            font-weight: bold;
+        }
+        
+        .message .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .message-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .message-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .message-buttons button:hover {
+            background-color: #45a049;
+        }
+        
+        .likes-count {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .comments {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        
+        .comments p {
+            margin: 0;
+        }
+        
+        .comments .comment {
+            margin-top: 10px;
+        }
+        
+        .comments .comment .username {
+            font-weight: bold;
+        }
+        
+        .comments .comment .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .comment-form {
+            margin-top: 10px;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            height: 60px;
+            resize: none;
+        }
+        
+        .comment-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 5px;
+        }
+        
+        .comment-form button:hover {
+            background-color: #45a049;
+        }
+        
+        .post-form {
+            margin-top: 20px;
+        }
+        
+        .post-form textarea {
+            width: 100%;
+            height: 100px;
+            resize: none;
+        }
+        
+        .post-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+        
+        .post-form button:hover {
+            background-color: #45a049;
+        }
+        
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .back-button button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .back-button button:hover {
+            background-color: #007a8b;
+        }
+    </style>
 </head>
 <body>
     <h1>Chat</h1>
-    <h2>Welcome, {{ username }}!</h2>  <!-- Display the registered username -->
+    <h2>Welcome, {{ username }}!</h2>
 
     <div id="chat-messages">
         {% for post in messages %}
             {% for index in range(post['postIds']|length) %}
-                <p>{{ post['username'] }}: {{ post['posts'][index] }}: {{ post['timestamps'][index] }}</p>
-            <div >
-                <form method="POST" action="/Like">
-                    <button type="submit" name="post_id" Value= {{ post['postIds'][index] }} >Like ! </button>
-                </form>
-  
-                <form method="POST" action="/LikesForPost" >
-                    <p>Likes count: {{post['LikesCount'][index]}}</p>
-                    <button type="submit" name="post_id" Value= {{ post['postIds'][index] }} >Users Liked ! </button>
-
-                </form>
-
-            </div>
-                <center>
-                {% for index2 in range(post['Comments'][index]|length) %}
-                <center ><p>{{post['Comments'][index][index2]['username']}} : {{post['Comments'][index][index2]['comment']}} : {{post['Comments'][index][index2]['timestamp']}}  </p></center>
-                {% endfor %}
- 
-                <form method="POST" action="/Comment">
-                    <textarea name="comment_content"  placeholder="Write your Comment"></textarea>
-                    <br>
-                    <button type="submit" name="post_id" Value= {{ post['postIds'][index] }} >Send</button> 
-                </form>
-                </center>
+                <div class="message">
+                    <p class="username">{{ post['username'] }}:</p>
+                    <p>{{ post['posts'][index] }}</p>
+                    <p class="timestamp">{{ post['timestamps'][index] }}</p>
+                    
+                    <div class="message-buttons">
+                        <form method="POST" action="/Like">
+                            <button type="submit" name="post_id" value="{{ post['postIds'][index] }}">Like!</button>
+                        </form>
+                        
+                        <form method="POST" action="/LikesForPost">
+                            <p class="likes-count">Likes count: {{ post['LikesCount'][index] }}</p>
+                            <button type="submit" name="post_id" value="{{ post['postIds'][index] }}">Users Liked!</button>
+                        </form>
+                    </div>
+                    
+                    <div class="comments">
+                        {% for index2 in range(post['Comments'][index]|length) %}
+                            <div class="comment">
+                                <p class="username">{{ post['Comments'][index][index2]['username'] }}:</p>
+                                <p>{{ post['Comments'][index][index2]['comment'] }}</p>
+                                <p class="timestamp">{{ post['Comments'][index][index2]['timestamp'] }}</p>
+                            </div>
+                        {% endfor %}
+                        
+                        <form method="POST" action="/Comment" class="comment-form">
+                            <textarea name="comment_content" placeholder="Write your Comment"></textarea>
+                            <br>
+                            <button type="submit" name="post_id" value="{{ post['postIds'][index] }}">Send</button>
+                        </form>
+                    </div>
+                </div>
             {% endfor %}
         {% endfor %}
     </div>
+    
     <hr>
-    <form method="POST" action="/post">
+    
+    <form method="POST" action="/post" class="post-form">
         <textarea name="post_content" placeholder="Write your post"></textarea>
         <br>
         <button type="submit">Send</button>
     </form>
-
-    <br><br>
-    <form action="/" method="get">
-        <button type="submit">Back To Home ! </button>
-    </form>
+    
+    <div class="back-button">
+        <form action="/" method="get">
+            <button type="submit">Back To Home!</button>
+        </form>
+    </div>
 </body>
 </html>

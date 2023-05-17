@@ -1,6 +1,53 @@
-<!-- post.html -->
-<form action="{{ url_for('create_post') }}" method="post">
-    <input type="text" name="post_content" id="post_content" placeholder="Enter your post">
-    <input type="submit" value="Create Post">
-  </form>
-  
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create Post</h1>
+    <form action="{{ url_for('create_post') }}" method="post">
+        <input type="text" name="post_content" id="post_content" placeholder="Enter your post">
+        <br>
+        <input type="submit" value="Create Post">
+    </form>
+</body>
+</html>
