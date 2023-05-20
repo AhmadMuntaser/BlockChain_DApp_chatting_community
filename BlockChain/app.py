@@ -180,7 +180,7 @@ def reg():
 
 
         print(f"registered successfully as {username}")
-        return render_template('chat.html', username=username) 
+        return redirect("/post") 
     else: 
         return 'registered done!!'
 
