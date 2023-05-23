@@ -54,6 +54,7 @@
     <h1>Community Dapp</h1>
     {% if userSigned_Check %}
         <h3>Welcome Back {{ username }}!</h3>
+        <h3>sign up date: {{date_sign_up}}</h3>
         <form action="/post" method="get">
             <button type="submit">Go Chat!</button>
         </form>
