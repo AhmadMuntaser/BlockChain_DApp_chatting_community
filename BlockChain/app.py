@@ -167,7 +167,8 @@ def home():
     userSigned_Check = user_tuple[2]
     username = user_tuple[0]
     if (userSigned_Check): 
-        return render_template("index.html", userSigned_Check =userSigned_Check , username=username )
+        date_sign_up = return_readable_timestamp(int(user_tuple[1]))
+        return render_template("index.html", userSigned_Check =userSigned_Check , username=username , date_sign_up=date_sign_up )
     else: 
         return render_template("index.html", userSigned_Check =userSigned_Check,  username=username)
 
